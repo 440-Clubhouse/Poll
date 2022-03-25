@@ -9,7 +9,7 @@ import (
     "github.com/gin-gonic/gin"
 )
 
-func GetQuestion(c *gin.Context) {
+func GetQuestionnaire(c *gin.Context) {
     id, err := strconv.Atoi(c.Param("id"))
     if err != nil {
         c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
@@ -19,8 +19,8 @@ func GetQuestion(c *gin.Context) {
         return
     }
 
-    var question models.Question
-    if err = question.Get(id); err != nil {
+    var questionnaire models.Questionnaire
+    if err = questionnaire.Get(id); err != nil {
         c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
             "code": http.StatusInternalServerError,
             "msg":  err,
@@ -28,12 +28,12 @@ func GetQuestion(c *gin.Context) {
         return
     }
 
-    c.JSON(http.StatusOK, question)
+    c.JSON(http.StatusOK, questionnaire)
 }
 
-func GetAllQuestions(c *gin.Context) {
-    var questions models.Questions
-    if err := questions.GetAll(); err != nil {
+func GetAllQuestionnaires(c *gin.Context) {
+    var questionnaires models.Questionnaires
+    if err := questionnaires.GetAll(); err != nil {
         c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
             "code": http.StatusInternalServerError,
             "msg":  err,
@@ -41,12 +41,12 @@ func GetAllQuestions(c *gin.Context) {
         return
     }
 
-    c.JSON(http.StatusOK, questions)
+    c.JSON(http.StatusOK, questionnaires)
 }
 
-func CreateQuestion(c *gin.Context) {
-    var question models.Question
-    if err := c.ShouldBindJSON(&question); err != nil {
+func CreateQuestionnaire(c *gin.Context) {
+    var questionnaire models.Questionnaire
+    if err := c.ShouldBindJSON(&questionnaire); err != nil {
         c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
             "code": http.StatusBadRequest,
             "msg":  err,
@@ -54,8 +54,8 @@ func CreateQuestion(c *gin.Context) {
         return
     }
 
-    question.Date = time.Now().Format("2006-01-02 15:04:05")
-    if err := question.Create(); err != nil {
+    questionnaire.Date = time.Now().Format("2006-01-02 15:04:05")
+    if err := questionnaire.Create(); err != nil {
         c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
             "code": http.StatusInternalServerError,
             "msg":  err,
@@ -69,7 +69,7 @@ func CreateQuestion(c *gin.Context) {
     })
 }
 
-func DeleteQuestion(c *gin.Context) {
+func DeleteQuestionnaire(c *gin.Context) {
     id, err := strconv.Atoi(c.Param("id"))
     if err != nil {
         c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
@@ -79,8 +79,8 @@ func DeleteQuestion(c *gin.Context) {
         return
     }
 
-    var question models.Question
-    if err = question.Delete(id); err != nil {
+    var questionnaire models.Questionnaire
+    if err = questionnaire.Delete(id); err != nil {
         c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
             "code": http.StatusInternalServerError,
             "msg":  err,

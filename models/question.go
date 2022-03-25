@@ -1,10 +1,9 @@
 package models
 
 type Question struct {
-    ID       int
-    Title    string
-    Contents string
-    Date     string
+    ID    int    `json:"id"`
+    Title string `json:"title"`
+    Date  string `json:"date"`
 }
 
 type Questions []Question

@@ -15,7 +15,7 @@ func Init() (err error) {
         return
     }
 
-    err = DB.AutoMigrate()
+    err = DB.AutoMigrate(&Question{}, &Questionnaire{})
     if err != nil {
         return
     }
